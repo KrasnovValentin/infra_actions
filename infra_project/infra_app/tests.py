@@ -1,24 +1,33 @@
 from http import HTTPStatus
 
 from django.test import Client, TestCase
+# from django.contrib.auth import get_user_model
+# User = get_user_model()
+from django.urls import reverse
 
 
 class StaticPagesURLTests(TestCase):
+    # @classmethod
+    # def setUpClass(cls):
+    #     """ Создаем ..."""
+    #     super().setUpClass()
+    #     cls.user = User.objects.create_user(username='auth')
+
     def setUp(self):
         self.guest_client = Client()
 
     def test_about_url_exists_at_desired_location(self):
         """Проверка доступности страниц."""
-        response = self.guest_client.get('/')
-        self.assertEqual(response.status_code, HTTPStatus.OK)
+        response = self.guest_client.get(reverse('infra_app:index'))
+        self.assertEqual(response.status_code, HTTPStatus.OK.value)
 
-        response = self.guest_client.get('/second_page/')
-        self.assertEqual(response.status_code, HTTPStatus.OK)
+        response = self.guest_client.get(reverse('infra_app:second_page'))
+        self.assertEqual(response.status_code, HTTPStatus.OK.value)
 
     def test_page_shows_correct_content(self):
         """Проверка контента страниц."""
         response = self.guest_client.get('/')
         self.assertContains(response, 'У меня получилось!')
 
-        response = self.guest_client.get('/second_page/')
-        self.assertContains(response, 'А это вторая страница!')
+        response = self.guest_client.get('/second/')
+        self.assertContains(response, 'А это вторая страница')
