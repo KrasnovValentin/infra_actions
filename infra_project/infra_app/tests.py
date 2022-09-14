@@ -1,17 +1,10 @@
 from http import HTTPStatus
 
 from django.test import Client, TestCase
-# from django.contrib.auth import get_user_model
-# User = get_user_model()
 from django.urls import reverse
 
 
 class StaticPagesURLTests(TestCase):
-    # @classmethod
-    # def setUpClass(cls):
-    #     """ Создаем ..."""
-    #     super().setUpClass()
-    #     cls.user = User.objects.create_user(username='auth')
 
     def setUp(self):
         self.guest_client = Client()
